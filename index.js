@@ -71,5 +71,7 @@ const initialDirection = "N";
 
 
 const result = applyCommands(commands, startingPosition, initialDirection);
-
-console.log(result);
+  
+if (result) {
+    console.log(result);
+}
