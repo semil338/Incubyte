@@ -1,4 +1,4 @@
-export function applyCommands(commands, startingPosition, initialDirection) {
+function applyCommands(commands, startingPosition, initialDirection) {
 
     // Initialize All Directions
     const directions = ["N", "E", "S", "W", "U", "D"];
@@ -67,9 +67,9 @@ export function applyCommands(commands, startingPosition, initialDirection) {
 
 
 // Commands
-const commands = ["f", "r", "l", "b", "u", "f", "r"];
+const commands = ["f", "r", "u", "b", "l"];
 const startingPosition = [0, 0, 0];
-const initialDirection = "W";
+const initialDirection = "N";
 
 
 const result = applyCommands(commands, startingPosition, initialDirection);
@@ -77,3 +77,5 @@ const result = applyCommands(commands, startingPosition, initialDirection);
 if (result) {
     console.log(result);
 }
+
+module.exports = applyCommands;
