@@ -52,7 +52,7 @@ describe('calculatePoints function', () => {
         expect(result.finalDirection).toBe("E");
     });
 
-    test('Custom  case ', () => {
+    test('Custom directions case ', () => {
        const commands = ["u", "r"];
         const startingPosition = [0, 0, 0];
         const initialDirection = "W";
@@ -61,26 +61,5 @@ describe('calculatePoints function', () => {
         expect(result.finalPosition).toStrictEqual([0,0,0]);
         expect(result.finalDirection).toBe("N");
     });
-    
-    test('Custom case ', () => {
-       const commands = ["u", "r"];
-        const startingPosition = [0, 0, 0];
-        const initialDirection = "W";
-
-        const result = calculatePoints(commands, startingPosition, initialDirection);
-        expect(result.finalPosition).toStrictEqual([0,0,0]);
-        expect(result.finalDirection).toBe("N");
-    });  
-
-    test('Custom case ', () => {
-       const commands = ["u", "r"];
-        const startingPosition = [0, 0, 0];
-        const initialDirection = "W";
-
-        const result = calculatePoints(commands, startingPosition, initialDirection);
-        expect(result.finalPosition).toStrictEqual([0,0,0]);
-        expect(result.finalDirection).toBe("N");
-    });
-
     
 });

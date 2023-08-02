@@ -18,11 +18,22 @@ function calculatePoints(commands, startingPosition, initialDirection) {
     let previousDirectionIndex;
     // Loop through every command and update the values
     for (let i = 0; i < commands.length; i++) {
+        let command = commands[i];
 
         if (i === 0) {
             previousDirectionIndex = currentDirectionIndex;
         }
-        let command = commands[i];
+        
+
+        if (currentDirectionIndex >= 4) {
+            previousDirectionIndex =  directions.findIndex(value => value ===  commands[i-1])
+        }
+        else{
+            // previousDirectionIndex=currentDirectionIndex;
+        }
+
+        console.log(command, currentPosition, directions[currentDirectionIndex], previousDirectionIndex, currentDirectionIndex);
+
 
         // let previousDirectionIndex = i == 0 ? currentDirectionIndex : directions.findIndex(value => value === commands[i - 1])
         switch (command) {
@@ -62,14 +73,9 @@ function calculatePoints(commands, startingPosition, initialDirection) {
                 console.error(`Invalid command "${command}"`);
         }
 
-
-        if (currentDirectionIndex >= 4) {
-            previousDirectionIndex = currentDirectionIndex
-        }
-
-        console.log(command, currentPosition, directions[currentDirectionIndex], previousDirectionIndex, currentDirectionIndex);
-
     }
+    console.log(commands[commands.length-1], currentPosition, directions[currentDirectionIndex], previousDirectionIndex, currentDirectionIndex);
+
 
     // return posiition and direction
     return {
