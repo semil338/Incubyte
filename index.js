@@ -1,3 +1,4 @@
+
 function applyCommands(commands, startingPosition, initialDirection) {
 
     // Initialize All Directions
@@ -10,6 +11,8 @@ function applyCommands(commands, startingPosition, initialDirection) {
         return;
     }
 
+    console.log(directions.findIndex(value => value === initialDirection));
+
     // Initialize the current position and direction
     let currentPosition = [...startingPosition];
     let currentDirectionIndex = directionIndex[initialDirection];
@@ -18,36 +21,36 @@ function applyCommands(commands, startingPosition, initialDirection) {
     for (const command of commands) {
         switch (command) {
             case "f":
-                // Move forward in the x-direction (East)
-                if (currentDirectionIndex === 1) currentPosition[0]++; 
-                // Move forward in the y-direction (North)
-                if (currentDirectionIndex === 0) currentPosition[1]++;
+                // Move forward in the x-direction (East & West)
+                if (currentDirectionIndex === 1 || currentDirectionIndex === 3) currentPosition[0]++;
+                // Move forward in the y-direction (North & South)
+                if (currentDirectionIndex === 0 || currentDirectionIndex === 2) currentPosition[1]++;
                 // Move upward in the z-direction (Up Down)
-                if (currentDirectionIndex === 4) currentPosition[2]++;
+                if (currentDirectionIndex === 4 || currentDirectionIndex === 5) currentPosition[2]++;
                 break;
             case "b":
-                // Move backward in the x-direction (West)
-                if (currentDirectionIndex === 1) currentPosition[0]--; 
-                // Move backward in the y-direction (South)
-                if (currentDirectionIndex === 0) currentPosition[1]--;
-                // Move downward in the z-direction
-                if (currentDirectionIndex === 4) currentPosition[2]--;
+                // Move backward in the x-direction (East & West)
+                if (currentDirectionIndex === 1 || currentDirectionIndex === 3) currentPosition[0]--;
+                // Move backward in the y-direction (North & South)
+                if (currentDirectionIndex === 0 || currentDirectionIndex === 2) currentPosition[1]--;
+                // Move downward in the z-direction (Up Down)
+                if (currentDirectionIndex === 4 || currentDirectionIndex === 5) currentPosition[2]--;
                 break;
             case "r":
                 // Turn right (N -> E -> S -> W -> N)
-                currentDirectionIndex = (currentDirectionIndex + 1) % 4; 
+                currentDirectionIndex = (currentDirectionIndex + 1) % 4;
                 break;
             case "l":
                 // Turn left (N -> W -> S -> E -> N)
-                currentDirectionIndex = (currentDirectionIndex - 1 + 4) % 4; 
+                currentDirectionIndex = (currentDirectionIndex - 1 + 4) % 4;
                 break;
             case "u":
                 // Change to "Up" direction
-                currentDirectionIndex = 4; 
+                currentDirectionIndex = 4;
                 break;
             case "d":
                 // Change to "Down" direction
-                currentDirectionIndex = 5; 
+                currentDirectionIndex = 5;
                 break;
             default:
                 // Handle invalid command
@@ -65,13 +68,13 @@ function applyCommands(commands, startingPosition, initialDirection) {
 
 
 // Commands
-const commands = ["f", "r", "u", "b", "l"];
+const commands = ["f", "r", "l", "b", "u", "f", "r"];
 const startingPosition = [0, 0, 0];
-const initialDirection = "N";
+const initialDirection = "W";
 
 
 const result = applyCommands(commands, startingPosition, initialDirection);
-  
+
 if (result) {
     console.log(result);
 }
