@@ -16,7 +16,6 @@ function applyCommands(commands, startingPosition, initialDirection) {
 
     // Loop through every command and update the values
     for (const command of commands) {
-        console.log(currentPosition, directions[currentDirectionIndex]);
         switch (command) {
             case "f":
                 // Move forward in the x-direction (East)
@@ -54,6 +53,7 @@ function applyCommands(commands, startingPosition, initialDirection) {
                 // Handle invalid command
                 console.error(`Invalid command "${command}"`);
         }
+        console.log(command, currentPosition, directions[currentDirectionIndex]);
     }
 
     // return posiition and direction
@@ -70,3 +70,6 @@ const startingPosition = [0, 0, 0];
 const initialDirection = "N";
 
 
+const result = applyCommands(commands, startingPosition, initialDirection);
+
+console.log(result);
