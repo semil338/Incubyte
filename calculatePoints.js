@@ -1,60 +1,74 @@
 
+
 function calculatePoints(commands, startingPosition, initialDirection) {
 
     // Initialize All Directions
     const directions = ["N", "E", "S", "W", "U", "D"];
-    const directionIndex = { N: 0, E: 1, S: 2, W: 3, U: 4, D: 5 };
 
     // Return if Invalid initialDirection
-    if (!directionIndex.hasOwnProperty(initialDirection)) {
-        return (`Invalid initial direction "${initialDirection}".`);
-    }
-
-    // console.log(directions.findIndex(value => value === initialDirection));
+    // if (!directionIndex.hasOwnProperty(initialDirection)) {
+    //     return (`Invalid initial direction "${initialDirection}".`);
+    // }
 
     // Initialize the current position and direction
     let currentPosition = [...startingPosition];
     let currentDirectionIndex = directions.findIndex(value => value === initialDirection);
 
+
+    let previousDirectionIndex;
     // Loop through every command and update the values
-    for (const command of commands) {
+    for (let i = 0; i < commands.length; i++) {
+
+        if (i === 0) {
+            previousDirectionIndex = currentDirectionIndex;
+        }
+        let command = commands[i];
+
+        // let previousDirectionIndex = i == 0 ? currentDirectionIndex : directions.findIndex(value => value === commands[i - 1])
         switch (command) {
             case "f":
-                // Move forward in the x-direction (East & West)
-                if (currentDirectionIndex === 1 || currentDirectionIndex === 3) currentPosition[0]++;
-                // Move forward in the y-direction (North & South)
-                if (currentDirectionIndex === 0 || currentDirectionIndex === 2) currentPosition[1]++;
-                // Move upward in the z-direction (Up Down)
-                if (currentDirectionIndex === 4 || currentDirectionIndex === 5) currentPosition[2]++;
+                moveForward(currentDirectionIndex, currentPosition);
                 break;
             case "b":
-                // Move backward in the x-direction (East & West)
-                if (currentDirectionIndex === 1 || currentDirectionIndex === 3) currentPosition[0]--;
-                // Move backward in the y-direction (North & South)
-                if (currentDirectionIndex === 0 || currentDirectionIndex === 2) currentPosition[1]--;
-                // Move downward in the z-direction (Up Down)
-                if (currentDirectionIndex === 4 || currentDirectionIndex === 5) currentPosition[2]--;
+                moveBackward(currentDirectionIndex, currentPosition);
                 break;
             case "r":
                 // Turn right (N -> E -> S -> W -> N)
-                currentDirectionIndex = (currentDirectionIndex + 1) % 4;
+                if (currentDirectionIndex <= 4) {
+                    currentDirectionIndex = (currentDirectionIndex + 1) % 4;
+                }
+                else {
+                    currentDirectionIndex = (previousDirectionIndex + 1) % 4;
+                }
                 break;
             case "l":
                 // Turn left (N -> W -> S -> E -> N)
-                currentDirectionIndex = (currentDirectionIndex - 1 + 4) % 4;
+                if (currentDirectionIndex <= 4) {
+                    currentDirectionIndex = (currentDirectionIndex - 1 + 4) % 4;
+                }
+                else {
+                    currentDirectionIndex = (previousDirectionIndex - 1 + 4) % 4;
+                }
                 break;
             case "u":
-                // Change to "Up" direction
+                // Change to "U" direction
                 currentDirectionIndex = 4;
                 break;
             case "d":
-                // Change to "Down" direction
+                // Change to "D" direction
                 currentDirectionIndex = 5;
                 break;
             default:
-                // Handle invalid command
                 console.error(`Invalid command "${command}"`);
         }
+
+
+        if (currentDirectionIndex >= 4) {
+            previousDirectionIndex = currentDirectionIndex
+        }
+
+        console.log(command, currentPosition, directions[currentDirectionIndex], previousDirectionIndex, currentDirectionIndex);
+
     }
 
     // return posiition and direction
@@ -65,4 +79,24 @@ function calculatePoints(commands, startingPosition, initialDirection) {
 }
 
 
-module.exports=calculatePoints;
+function moveBackward(currentDirectionIndex, currentPosition) {
+    // Move forward in the x-direction (East & West)
+    if (currentDirectionIndex === 1 || currentDirectionIndex === 3) currentPosition[0]--;
+    // Move backward in the y-direction (North & South)
+    if (currentDirectionIndex === 0 || currentDirectionIndex === 2) currentPosition[1]--;
+    // Move downward in the z-direction (Up Down)
+    if (currentDirectionIndex === 4 || currentDirectionIndex === 5) currentPosition[2]--;
+}
+
+function moveForward(currentDirectionIndex, currentPosition) {
+    // Move backward in the x-direction (East & West)
+    if (currentDirectionIndex === 1 || currentDirectionIndex === 3) currentPosition[0]++;
+    // Move forward in the y-direction (North & South)
+    if (currentDirectionIndex === 0 || currentDirectionIndex === 2) currentPosition[1]++;
+    // Move upward in the z-direction (Up Down)
+    if (currentDirectionIndex === 4 || currentDirectionIndex === 5) currentPosition[2]++;
+}
+
+
+
+module.exports = calculatePoints;
