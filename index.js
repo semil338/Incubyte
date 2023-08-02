@@ -1,5 +1,4 @@
-
-function applyCommands(commands, startingPosition, initialDirection) {
+export function applyCommands(commands, startingPosition, initialDirection) {
 
     // Initialize All Directions
     const directions = ["N", "E", "S", "W", "U", "D"];
